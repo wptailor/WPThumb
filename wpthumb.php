@@ -581,11 +581,10 @@ class WP_Thumb {
 /**
  * Resizes a given image (local).
  *
- * @param mixed absolute path to the image
- * @param int $width.
- * @param int $height.
- * @param bool $crop. (default: false)
- * @return (string) url to the image
+ * @param       $url
+ * @param array $args
+ *
+ * @return string url to the image.
  */
 function wpthumb( $url, $args = array() ) {
 

@@ -43,9 +43,7 @@ class WP_Thumb_Background_Fill {
 	/**
 	 * Background fill an image using the provided color
 	 *
-	 * @param int $width The desired width of the new image
-	 * @param int $height The desired height of the new image
-	 * @param Array the desired pad colors in RGB format, array should be array( 'top' => '', 'right' => '', 'bottom' => '', 'left' => '' );
+	 * @param array $colors the desired pad colors in RGB format, array should be array( 'top' => '', 'right' => '', 'bottom' => '', 'left' => '' );
 	 */
 	private function fill_color( array $colors ) {
 

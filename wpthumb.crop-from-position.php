@@ -19,10 +19,10 @@ add_action( 'init', 'wpthumb_add_crop_from_position_admin_hooks' );
  *
  * Adds a back end for selecting the crop position of images.
  *
- * @access public
  * @param array $fields
  * @param array $post
- * @return $post
+ *
+ * @return mixed
  */
 function wpthumb_media_form_crop_position( $fields, $post ) {
 
@@ -62,10 +62,10 @@ function wpthumb_media_form_crop_position( $fields, $post ) {
  *
  * Saves crop position in post meta.
  *
- * @access public
  * @param array $post
  * @param array $attachment
- * @return $post
+ *
+ * @return mixed
  */
 function wpthumb_media_form_crop_position_save( $post, $attachment ){
 

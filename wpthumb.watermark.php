@@ -79,10 +79,12 @@ function wpthumb_watermark_add_args_to_post_image( $args, $id ) {
 add_filter( 'wpthumb_post_image_args', 'wpthumb_watermark_add_args_to_post_image', 10, 2 );
 
 /**
- * Hook into WP Thumb before it resizes an image to possible apply a watermatk 
- * 
- * @param  WP_IMageEditor $editor
- * @param  array $args
+ * Hook into WP Thumb before it resizes an image to possible apply a watermark
+ *
+ * @param WP_ImageEditor $editor
+ * @param array $args
+ *
+ * @return mixed
  */
 function wpthumb_watermark_pre( $editor, $args ) {
 
@@ -121,10 +123,10 @@ add_filter( 'wpthumb_image_post', 'wpthumb_watermark_post', 10, 2 );
  *
  * Adds a back end for selecting the crop position of images.
  *
- * @access public
  * @param array $fields
  * @param array $post
- * @return $post
+ *
+ * @return mixed
  */
 function wpthumb_media_form_watermark_position( $fields, $post ) {
 
@@ -217,10 +219,10 @@ add_action( 'init', 'wpthumb_add_watermarking_admin_hooks' );
  *
  * Saves watermark in post meta.
  *
- * @access public
  * @param array $post
  * @param array $attachment
- * @return $post
+ *
+ * @return mixed
  */
 function wpthumb_media_form_watermark_save( $post, $attachment ){
 
