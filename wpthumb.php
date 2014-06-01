@@ -627,8 +627,8 @@ class WP_Thumb {
 /**
  * Resizes a given image (local).
  *
- * @param       $url
- * @param array $args
+ * @param string $url
+ * @param array  $args
  *
  * @return string url to the image.
  */

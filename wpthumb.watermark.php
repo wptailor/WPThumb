@@ -133,7 +133,7 @@ add_filter( 'wpthumb_image_pre', 'wpthumb_watermark_pre', 10, 2 );
  * @param WP_ImageEditor $editor
  * @param array $args
  *
- * @return mixed
+ * @return WP_ImageEditor
  */
 function wpthumb_watermark_post( $editor, $args ) {
 
@@ -143,7 +143,7 @@ function wpthumb_watermark_post( $editor, $args ) {
 
 	// we only want pre
 	if ( isset( $args['watermark_options']['pre_resize'] ) && $args['watermark_options']['pre_resize'] === true )
-		return;
+		return $editor;
 
 	new WP_Thumb_Watermark( $editor, $args );
 
@@ -157,7 +157,7 @@ add_filter( 'wpthumb_image_post', 'wpthumb_watermark_post', 10, 2 );
  * @param array $fields
  * @param array $post
  *
- * @return mixed
+ * @return array
  */
 function wpthumb_media_form_watermark_position( $fields, $post ) {
 
@@ -232,7 +232,7 @@ function wpthumb_media_form_watermark_position( $fields, $post ) {
 }
 
 /**
- * Only add the watermkaring admin optins if the current theme supports it, as we don;t want to clutter for poeple who don't care.
+ * Only add the watermkaring admin optins if the current theme supports it, as we don't want to clutter for poeple who don't care.
  * 
  */
 function wpthumb_add_watermarking_admin_hooks() {
