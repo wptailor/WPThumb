@@ -1,10 +1,26 @@
 <?php
 
+/**
+ * Class WP_Thumb_Watermark
+ */
 class WP_Thumb_Watermark {
 
+	/**
+	 * @var array
+	 */
 	private $args = array();
+
+	/**
+	 * @var WP_ImageEditor
+	 */
 	private $editor;
 
+	/**
+	 * Constructs a new WP_Thumb_Watermark
+	 *
+	 * @param WP_ImageEditor $editor
+	 * @param array $args
+	 */
 	public function __construct( $editor, $args ) {
 
 		$this->editor = $editor;
@@ -19,6 +35,9 @@ class WP_Thumb_Watermark {
 		$this->fill_watermark();
 	}
 
+	/**
+	 * Fill the image watermark.
+	 */
 	public function fill_watermark() {
 
 		$image = $this->editor->get_image();
@@ -69,6 +88,14 @@ class WP_Thumb_Watermark {
 
 }
 
+/**
+ * Adds the args pertaining to the watermark to the post image
+ *
+ * @param array $args
+ * @param $id
+ *
+ * @return mixed
+ */
 function wpthumb_watermark_add_args_to_post_image( $args, $id ) {
 
 	if ( wpthumb_wm_image_has_watermark( $id ) )
@@ -84,7 +111,7 @@ add_filter( 'wpthumb_post_image_args', 'wpthumb_watermark_add_args_to_post_image
  * @param WP_ImageEditor $editor
  * @param array $args
  *
- * @return mixed
+ * @return WP_ImageEditor
  */
 function wpthumb_watermark_pre( $editor, $args ) {
 
@@ -94,7 +121,7 @@ function wpthumb_watermark_pre( $editor, $args ) {
 
 	// we only want pre
 	if ( empty( $args['watermark_options']['pre_resize'] ) )
-		return;
+		return $editor;
 
 	new WP_Thumb_Watermark( $editor, $args );
 
@@ -102,6 +129,12 @@ function wpthumb_watermark_pre( $editor, $args ) {
 }
 add_filter( 'wpthumb_image_pre', 'wpthumb_watermark_pre', 10, 2 );
 
+/**
+ * @param WP_ImageEditor $editor
+ * @param array $args
+ *
+ * @return mixed
+ */
 function wpthumb_watermark_post( $editor, $args ) {
 
 	// currently only supports GD
@@ -119,8 +152,6 @@ function wpthumb_watermark_post( $editor, $args ) {
 add_filter( 'wpthumb_image_post', 'wpthumb_watermark_post', 10, 2 );
 
 /**
- * wpthumb_media_form_crop_position function.
- *
  * Adds a back end for selecting the crop position of images.
  *
  * @param array $fields
@@ -201,8 +232,7 @@ function wpthumb_media_form_watermark_position( $fields, $post ) {
 }
 
 /**
- * Only add the watermkaring admin optins if the current theme suports it, as we don;t want to clutter
- * for poeple who don't care
+ * Only add the watermkaring admin optins if the current theme supports it, as we don;t want to clutter for poeple who don't care.
  * 
  */
 function wpthumb_add_watermarking_admin_hooks() {
@@ -215,14 +245,12 @@ function wpthumb_add_watermarking_admin_hooks() {
 add_action( 'init', 'wpthumb_add_watermarking_admin_hooks' );
 
 /**
- * wpthumb_media_form_watermark_save function.
- *
  * Saves watermark in post meta.
  *
  * @param array $post
  * @param array $attachment
  *
- * @return mixed
+ * @return array
  */
 function wpthumb_media_form_watermark_save( $post, $attachment ){
 
@@ -245,7 +273,7 @@ function wpthumb_media_form_watermark_save( $post, $attachment ){
 }	
 
 /**
- * wpthumb_wm_get_options function.
+ * Returns the watermark options for the image.
  *
  * @access public
  * @param mixed $id
@@ -276,18 +304,18 @@ function wpthumb_wm_get_options( $id ) {
 }
 
 /**
- * wpthumb_wm_image_has_watermark function.
+ * Determines whether the image has a watermark or not.
  *
  * @access public
  * @param mixed $image_id
- * @return null
+ * @return bool
  */
 function wpthumb_wm_image_has_watermark( $image_id ) {
 	return (bool) get_post_meta( $image_id, 'use_watermark', true );
 }
 
 /**
- * wpthumb_wm_position function.
+ * Provides the watermark position.
  *
  * @access public
  * @param mixed $image_id
@@ -304,7 +332,7 @@ function wpthumb_wm_position( $image_id ) {
 }
 
 /**
- * wpthumb_wm_padding function.
+ * Provides the watermark padding value.
  *
  * @access public
  * @param mixed $image_id
@@ -320,6 +348,13 @@ function wpthumb_wm_padding( $image_id ) {
 		return $padding;
 }
 
+/**
+ * Returns whether the image has a value for pre_resize.
+ *
+ * @param $image_id
+ *
+ * @return bool
+ */
 function wpthumb_wm_pre_resize( $image_id ) {
 
 	if ( $pre = (bool) get_post_meta( $image_id, 'wpthumb_wm_pre_resize', true ) )
@@ -330,6 +365,14 @@ function wpthumb_wm_pre_resize( $image_id ) {
 		return $pre;
 
 }
+
+/**
+ * Returns whether the image has a value for wpthumb_wm_mask.
+ *
+ * @param $image_id
+ *
+ * @return string
+ */
 function wpthumb_wm_mask( $image_id ) {
 
 	if ( $pre = (string) get_post_meta( $image_id, 'wpthumb_wm_mask', true ) )

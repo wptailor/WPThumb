@@ -65,7 +65,7 @@ function wpthumb_media_form_crop_position( $fields, $post ) {
  * @param array $post
  * @param array $attachment
  *
- * @return mixed
+ * @return array
  */
 function wpthumb_media_form_crop_position_save( $post, $attachment ){
 

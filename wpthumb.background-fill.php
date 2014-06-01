@@ -1,10 +1,25 @@
 <?php
 
+/**
+ * Class WP_Thumb_Background_Fill
+ */
 class WP_Thumb_Background_Fill {
 
+	/**
+	 * @var array
+	 */
 	private $args = array();
+	/**
+	 * @var WP_ImageEditor
+	 */
 	private $editor;
 
+	/**
+	 * Constructs a new WP_Thumb_Background_Fill
+	 *
+	 * @param WP_ImageEditor $editor
+	 * @param array $args
+	 */
 	public function __construct( $editor, $args ) {
 
 		$this->editor = $editor;
@@ -27,6 +42,8 @@ class WP_Thumb_Background_Fill {
 
 	/**
 	 * Background fill an image using the provided color
+	 *
+	 * @param $color
 	 */
 	public function fill_with_color( $color ) {
 
@@ -95,6 +112,11 @@ class WP_Thumb_Background_Fill {
 		$this->editor->update_size();
 	}
 
+	/**
+	 * Returns the background color.
+	 *
+	 * @return bool|int|string
+	 */
 	public function get_background_color() {
 
 		$current_size = $this->editor->get_size();
@@ -126,6 +148,14 @@ class WP_Thumb_Background_Fill {
 
 }
 
+/**
+ * Fills the background.
+ *
+ * @param WP_ImageEditor $editor
+ * @param array $args
+ *
+ * @return WP_ImageEditor
+ */
 function wpthumb_background_fill( $editor, $args ) {
 
 	// currently only supports GD

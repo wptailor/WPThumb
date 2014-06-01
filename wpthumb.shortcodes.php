@@ -10,6 +10,13 @@
 
 add_shortcode( 'wpthumb', 'wpthumb_img_shortcode' );
 
+/**
+ * Registers a shortcode for WPThumb images.
+ * 
+ * @param $args
+ *
+ * @return string
+ */
 function wpthumb_img_shortcode( $args ) {
 
 	$args_attrs = array( 'class', 'alt' );

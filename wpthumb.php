@@ -25,7 +25,13 @@ Author URI: http://www.hmn.md/
 	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
 
+/**
+ *
+ */
 define( 'WP_THUMB_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
+/**
+ *
+ */
 define( 'WP_THUMB_URL', plugin_dir_url( __FILE__ ) );
 
 // TODO wpthumb_create_args_from_size filter can pass string or array which makes it difficult to hook into
@@ -59,8 +65,18 @@ class WP_Thumb {
 	 */
 	private $file_path;
 
+	/**
+	 * Information related to the WordPress uploads directory.
+	 *
+	 * @var array
+	 */
 	private static $wp_upload_dir;
 
+	/**
+	 * Returns the uploads directory information.
+	 *
+	 * @return array
+	 */
 	private static function uploadDir() {
 
 		if ( empty( self::$wp_upload_dir ) )
@@ -74,13 +90,17 @@ class WP_Thumb {
 
 	/**
 	 * Clear the internally cached upload dir. WP Thumb cached the results of wp_upload_dir()
-	 * for performance, however it's sometimes necessary to clear the internal cache, such as switching
-	 * blogs in multisite
+	 * for performance, however it's sometimes necessary to clear the internal cache, such as switching blogs in multisite
 	 */
 	public static function clearUploadDirCache() {
 		self::$wp_upload_dir = null;		
 	}
 
+	/**
+	 * Determines the path to the WordPress install.
+	 *
+	 * @return mixed
+	 */
 	private static function get_home_path() {
 		return str_replace( str_replace( home_url(), '', site_url() ), '', ABSPATH );
 	}
@@ -368,6 +388,11 @@ class WP_Thumb {
 
 	}
 
+	/**
+	 * Determines whether WPThumb is on the same server as the site.
+	 *
+	 * @return bool
+	 */
 	public function isRemote() {
 
 		return strpos( $this->getFilePath(), self::get_home_path() ) !== 0;
@@ -377,7 +402,7 @@ class WP_Thumb {
 	/**
 	 * Generate the new cache file using the original image and args
 	 *
-	 * @return string new filepath
+	 * @return string
 	 */
 	public function generateCacheFile() {
 
@@ -445,6 +470,15 @@ class WP_Thumb {
 		do_action( 'wpthumb_saved_cache_image', $this );
 	}
 
+	/**
+	 * Crops an image form the center.
+	 *
+	 * @param WP_ImageEditor $editor
+	 * @param                $width
+	 * @param                $height
+	 *
+	 * @return mixed
+	 */
 	private function crop_from_center( $editor, $width, $height ) {
 
 		$size = $editor->get_size();
@@ -464,6 +498,17 @@ class WP_Thumb {
 		return $editor->crop( $crop['x'], $crop['y'], $crop['width'], $crop['height'] );
 	}
 
+	/**
+	 * Crops an image from the provided position.
+	 *
+	 * @param WP_ImageEditor $editor
+	 * @param                $width
+	 * @param                $height
+	 * @param                $position
+	 * @param bool           $resize
+	 *
+	 * @return mixed
+	 */
 	private function crop_from_position( $editor, $width, $height, $position, $resize = true ) {
 
 		$size = $editor->get_size();
@@ -724,7 +769,7 @@ function wpthumb_rmdir_recursive( $dir ) {
 }
 
 /**
- * wpthumb_errors function.
+ * Displays errors to the user.
  *
  * @access public
  * @return null
@@ -740,6 +785,13 @@ function wpthumb_errors() {
 }
 add_action( 'admin_notices', 'wpthumb_errors' );
 
+/**
+ * Adds WPThumb editors to WP Image Editors.
+ *
+ * @param $editors
+ *
+ * @return array
+ */
 function wpthumb_add_image_editors( $editors ) {
 
 	require_once( WP_THUMB_PATH . '/wpthumb.image-editor.php' );
