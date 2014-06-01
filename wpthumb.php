@@ -26,11 +26,12 @@ Author URI: http://www.hmn.md/
 */
 
 /**
- *
+ * The absolute path to the main plugin file.
  */
 define( 'WP_THUMB_PATH', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
+
 /**
- *
+ * The URL of the main plugin file.
  */
 define( 'WP_THUMB_URL', plugin_dir_url( __FILE__ ) );
 
