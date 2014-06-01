@@ -12,7 +12,7 @@ add_shortcode( 'wpthumb', 'wpthumb_img_shortcode' );
 
 /**
  * Registers a shortcode for WPThumb images.
- * 
+ *
  * @param $args
  *
  * @return string
