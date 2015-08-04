@@ -1,7 +1,8 @@
 {
 	"name"       : "humanmade/wp-thumb",
+	"type"			 : "wordpress-plugin",
 	"description": "An on-demand image generation replacement for WordPress image resizing.",
-	"keywords"   : ["wordpress"],
+	"keywords"   : ["wordpress", "thumbnails", "dynamic resizing"],
 	"homepage"   : "https://github.com/humanmade/WPThumb",
 	"license"    : "GPL-2.0+",
 	"authors"    : [
@@ -9,12 +10,16 @@
 			"name"    : "Human Made Limited",
 			"email"   : "hello@humanmade.co.uk",
 			"homepage": "http://humanmade.co.uk"
+		},
+		{
+			"name"    : "WPTailor",
+			"email"   : "info@wptailor.com"
 		}
 	],
-	"support"    : {
-		"issues": "https://github.com/humanmade/WPThumb/issues"
-	},
-	"autoload"   : {
-		"classmap": ["wpthumb.php"]
+  "require": {
+      "composer/installers": "~1.0"
+  },
+	"support"     : {
+		"issues": "https://github.com/wptailor/WPThumb/issues"
 	}
 }
